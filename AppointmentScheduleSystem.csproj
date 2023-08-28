@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\css\templatemo-574-mexant.css" />
+    <None Include="wwwroot\assets\images\about-left-image.jpg" />
+    <None Include="wwwroot\assets\images\calculator-bg.jpg" />
+    <None Include="wwwroot\assets\images\calculator-image.png" />
+    <None Include="wwwroot\assets\images\client-01.png" />
+    <None Include="wwwroot\assets\images\close.png" />
+    <None Include="wwwroot\assets\images\cta-bg.jpg" />
+    <None Include="wwwroot\assets\images\heading-bg.jpg" />
+    <None Include="wwwroot\assets\images\loading.gif" />
+    <None Include="wwwroot\assets\images\logo.png" />
+    <None Include="wwwroot\assets\images\next.png" />
+    <None Include="wwwroot\assets\images\prev.png" />
+    <None Include="wwwroot\assets\images\service-details-01.jpg" />
+    <None Include="wwwroot\assets\images\service-details-02.jpg" />
+    <None Include="wwwroot\assets\images\service-details-03.jpg" />
+    <None Include="wwwroot\assets\images\service-image-01.jpg" />
+    <None Include="wwwroot\assets\images\service-image-02.jpg" />
+    <None Include="wwwroot\assets\images\service-image-03.jpg" />
+    <None Include="wwwroot\assets\images\slide-01.jpg" />
+    <None Include="wwwroot\assets\images\slide-02.jpg" />
+    <None Include="wwwroot\assets\images\slide-03.jpg" />
+    <None Include="wwwroot\assets\images\testimonials-01.jpg" />
+    <None Include="wwwroot\assets\webfonts\fa-brands-400.ttf" />
+    <None Include="wwwroot\assets\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\assets\webfonts\fa-regular-400.ttf" />
+    <None Include="wwwroot\assets\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\assets\webfonts\fa-solid-900.ttf" />
+    <None Include="wwwroot\assets\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\assets\webfonts\fa-v4compatibility.ttf" />
+    <None Include="wwwroot\assets\webfonts\fa-v4compatibility.woff2" />
+  </ItemGroup>
+
+</Project>
