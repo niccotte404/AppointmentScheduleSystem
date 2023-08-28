@@ -39,4 +39,8 @@
     <None Include="wwwroot\assets\webfonts\fa-v4compatibility.woff2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
+  </ItemGroup>
+
 </Project>
