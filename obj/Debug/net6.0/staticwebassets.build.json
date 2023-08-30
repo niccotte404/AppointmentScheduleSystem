@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9q0IMMO6tmW1wqaWwB2zJdOCDg6+/9qJn4eon+l0/tk=",
+  "Hash": "3ySSB6+CebvBtuPJq6OyQo2BTdm+eOWYKvIYVY6vUV4=",
   "Source": "AppointmentScheduleSystem",
   "BasePath": "_content/AppointmentScheduleSystem",
   "Mode": "Default",
@@ -593,23 +593,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\webfonts\\fa-v4compatibility.woff2"
-    },
-    {
-      "Identity": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\css\\site.css",
-      "SourceId": "AppointmentScheduleSystem",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\",
-      "BasePath": "_content/AppointmentScheduleSystem",
-      "RelativePath": "css/site.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
       "Identity": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\favicon.ico",

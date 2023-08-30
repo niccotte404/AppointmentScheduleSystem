@@ -133,10 +133,6 @@
       "PackagePath": "staticwebassets\\assets\\webfonts\\fa-v4compatibility.woff2"
     },
     {
-      "Id": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\css\\site.css",
-      "PackagePath": "staticwebassets\\css\\site.css"
-    },
-    {
       "Id": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
