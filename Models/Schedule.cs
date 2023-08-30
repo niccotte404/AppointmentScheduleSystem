@@ -7,13 +7,17 @@ namespace AppointmentScheduleSystem.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Company { get; set; }
+
+        [ForeignKey("Company")]
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Cabinet { get; set; }
 
         [ForeignKey("Date")]
-        public Date Date { get; set; }
+        public int? DateId { get; set; }
+        public Date? Date { get; set; }
         public string Time { get; set; }
     }
 }

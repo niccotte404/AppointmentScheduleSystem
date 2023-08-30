@@ -1,9 +1,13 @@
-﻿namespace AppointmentScheduleSystem.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AppointmentScheduleSystem.Models
 {
     public class Date
     {
-        public int day { get; set; }
-        public int month { get; set; }
-        public int year { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public int Day { get; set; }
+        public string Month { get; set; }
+        public int Year { get; set; }
     }
 }
