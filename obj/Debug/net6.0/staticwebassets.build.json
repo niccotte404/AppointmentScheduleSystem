@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3ySSB6+CebvBtuPJq6OyQo2BTdm+eOWYKvIYVY6vUV4=",
+  "Hash": "zM7rR2edV4R+w9SQHYFLiFuxpV1PyF4d/rMAsqdD4f0=",
   "Source": "AppointmentScheduleSystem",
   "BasePath": "_content/AppointmentScheduleSystem",
   "Mode": "Default",
@@ -168,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cta-bg.jpg"
+    },
+    {
+      "Identity": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\assets\\images\\header-stickers.jpg",
+      "SourceId": "AppointmentScheduleSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\",
+      "BasePath": "_content/AppointmentScheduleSystem",
+      "RelativePath": "assets/images/header-stickers.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\header-stickers.jpg"
     },
     {
       "Identity": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\assets\\images\\heading-bg.jpg",

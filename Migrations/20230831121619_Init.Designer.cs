@@ -4,6 +4,7 @@ using AppointmentScheduleSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppointmentScheduleSystem.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230831121619_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,7 +123,7 @@ namespace AppointmentScheduleSystem.Migrations
                         .IsUnique()
                         .HasFilter("[AppUser] IS NOT NULL");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("AppointmentScheduleSystem.Models.Date", b =>
@@ -143,7 +146,7 @@ namespace AppointmentScheduleSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dates", (string)null);
+                    b.ToTable("Dates");
                 });
 
             modelBuilder.Entity("AppointmentScheduleSystem.Models.Emploee", b =>
@@ -192,7 +195,7 @@ namespace AppointmentScheduleSystem.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Emploees", (string)null);
+                    b.ToTable("Emploees");
                 });
 
             modelBuilder.Entity("AppointmentScheduleSystem.Models.Schedule", b =>
@@ -231,7 +234,7 @@ namespace AppointmentScheduleSystem.Migrations
 
                     b.HasIndex("DateId");
 
-                    b.ToTable("Schedules", (string)null);
+                    b.ToTable("Schedules");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

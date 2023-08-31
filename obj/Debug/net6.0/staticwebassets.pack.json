@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets\\assets\\images\\cta-bg.jpg"
     },
     {
+      "Id": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\assets\\images\\header-stickers.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\header-stickers.jpg"
+    },
+    {
       "Id": "C:\\CSProj\\AppointmentScheduleSystem\\wwwroot\\assets\\images\\heading-bg.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\heading-bg.jpg"
     },
