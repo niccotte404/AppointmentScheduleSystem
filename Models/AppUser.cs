@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppointmentScheduleSystem.Models
 {
-    public class Emploee
+    public class AppUser : IdentityUser
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Description { get; set; }
+        public string? Surname { get; set; }
+        public string? Description { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string? Image { get; set; }
@@ -18,6 +18,6 @@ namespace AppointmentScheduleSystem.Models
         [ForeignKey("Company")]
         public string? CompanyId { get; set; }
         public Company? Company { get; set; }
-        public string Department { get; set; }
+        public string? Department { get; set; }
     }
 }

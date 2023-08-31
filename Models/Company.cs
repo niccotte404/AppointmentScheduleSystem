@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppointmentScheduleSystem.Models
 {
@@ -12,5 +13,9 @@ namespace AppointmentScheduleSystem.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string? Image { get; set; }
+
+        [ForeignKey("AppUser")]
+        public string? AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
     }
 }

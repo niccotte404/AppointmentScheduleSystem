@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppointmentScheduleSystem.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230831121619_Init")]
+    [Migration("20230831204234_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -33,22 +33,39 @@ namespace AppointmentScheduleSystem.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("CompanyId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -61,6 +78,10 @@ namespace AppointmentScheduleSystem.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -68,6 +89,9 @@ namespace AppointmentScheduleSystem.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -78,6 +102,8 @@ namespace AppointmentScheduleSystem.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -93,9 +119,6 @@ namespace AppointmentScheduleSystem.Migrations
             modelBuilder.Entity("AppointmentScheduleSystem.Models.Company", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AppUser")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -118,10 +141,6 @@ namespace AppointmentScheduleSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUser")
-                        .IsUnique()
-                        .HasFilter("[AppUser] IS NOT NULL");
 
                     b.ToTable("Companies");
                 });
@@ -147,55 +166,6 @@ namespace AppointmentScheduleSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dates");
-                });
-
-            modelBuilder.Entity("AppointmentScheduleSystem.Models.Emploee", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AppUser")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CompanyId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Department")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUser")
-                        .IsUnique()
-                        .HasFilter("[AppUser] IS NOT NULL");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("Emploees");
                 });
 
             modelBuilder.Entity("AppointmentScheduleSystem.Models.Schedule", b =>
@@ -370,28 +340,13 @@ namespace AppointmentScheduleSystem.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AppointmentScheduleSystem.Models.Company", b =>
+            modelBuilder.Entity("AppointmentScheduleSystem.Models.AppUser", b =>
                 {
-                    b.HasOne("AppointmentScheduleSystem.Models.AppUser", "User")
-                        .WithOne("Company")
-                        .HasForeignKey("AppointmentScheduleSystem.Models.Company", "AppUser");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AppointmentScheduleSystem.Models.Emploee", b =>
-                {
-                    b.HasOne("AppointmentScheduleSystem.Models.AppUser", "User")
-                        .WithOne("Emploee")
-                        .HasForeignKey("AppointmentScheduleSystem.Models.Emploee", "AppUser");
-
                     b.HasOne("AppointmentScheduleSystem.Models.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AppointmentScheduleSystem.Models.Schedule", b =>
@@ -457,15 +412,6 @@ namespace AppointmentScheduleSystem.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AppointmentScheduleSystem.Models.AppUser", b =>
-                {
-                    b.Navigation("Company")
-                        .IsRequired();
-
-                    b.Navigation("Emploee")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

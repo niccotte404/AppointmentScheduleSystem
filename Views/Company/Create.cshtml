@@ -1,0 +1,69 @@
+﻿@using AppointmentScheduleSystem.ViewModels
+@model CreateCompanyViewModel
+
+@{
+}
+
+<body>
+    <div class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="header-text">
+                        <h2>Create Company</h2>
+                        <div class="div-dec"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <section class="contact-us-form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+          <div class="section-heading">
+            <h6>Found your own company</h6>
+            <h4>Feel all required fields</h4>
+          </div>
+        </div>
+        <div class="col-lg-10 offset-lg-1">
+          <form id="contact" asp-action="create" method="post" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-lg-6">
+                <fieldset>
+                  <input asp-for="Name" type="text" placeholder="Company Name..." required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <input asp-for="Description" type="text" placeholder="Company Description...">
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <input asp-for="Phone" type="text" placeholder="Company Phone..." required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <input asp-for="Email" type="text" name="email" id="email" placeholder="Company E-mail..." required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <input asp-for="Image" type="file" placeholder="Company Image...">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="orange-button">Send Message</button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="white-section"></section>
+</body>
