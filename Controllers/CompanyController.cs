@@ -25,7 +25,7 @@ namespace AppointmentScheduleSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyViewModel createCompanyViewModel)
         {
-            return View();
+            return View(createCompanyViewModel);
         }
     }
 }

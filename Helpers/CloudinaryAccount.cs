@@ -2,7 +2,7 @@
 
 namespace AppointmentScheduleSystem.Helpers
 {
-    public class CloudinarySettings
+    public class CloudinaryAccount
     {
         public string Account { get; set; }
         public string ApiKey { get; set; }
