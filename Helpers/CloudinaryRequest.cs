@@ -1,10 +1,11 @@
-﻿using CloudinaryDotNet;
+﻿using AppointmentScheduleSystem.Interfaces;
+using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.Options;
 
 namespace AppointmentScheduleSystem.Helpers
 {
-    public class CloudinaryRequest
+    public class CloudinaryRequest : ICloudinaryRequest
     {
         private readonly Cloudinary _cloudinary;
         public CloudinaryRequest(IOptions<CloudinaryAccount> cloudinaryAccountOptions)
@@ -18,7 +19,7 @@ namespace AppointmentScheduleSystem.Helpers
             _cloudinary.Api.Secure = true;
         }
 
-        public async Task<ImageUploadResult> UploadPhotoAsync(IFormFile imageFile)
+        public async Task<ImageUploadResult> UploadImageAsync(IFormFile imageFile)
         {
             var uploadResult = new ImageUploadResult();
 
@@ -36,7 +37,7 @@ namespace AppointmentScheduleSystem.Helpers
             return uploadResult;
         }
 
-        public async Task<DeletionResult> DeletePhotoAsync(string publicImageId)
+        public async Task<DeletionResult> DeleteImageAsync(string publicImageId)
         {
             var deletionParams = new DeletionParams(publicImageId);
             var deletionResut = await _cloudinary.DestroyAsync(deletionParams);
