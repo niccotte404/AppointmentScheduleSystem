@@ -29,6 +29,23 @@ namespace AppointmentScheduleSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyViewModel createCompanyViewModel)
         {
+            if (ModelState.IsValid != false)
+            {
+                var resultImageUpload = await _cloudinaryRequest.UploadImageAsync(createCompanyViewModel.Image);
+                var company = new CreateCompanyViewModel
+                {
+                    Name = createCompanyViewModel.Name,
+                    Description = createCompanyViewModel.Description,
+                    Phone = createCompanyViewModel.Phone,
+                    Email = createCompanyViewModel.Email,
+                    ImageUrl = resultImageUpload.Url.ToString()
+                };
+                
+            }
+            else
+            {
+                ModelState.AddModelError("", "Image upload error");
+            }
             return View(createCompanyViewModel);
         }
     }

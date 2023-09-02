@@ -4,7 +4,7 @@ namespace AppointmentScheduleSystem.Interfaces
 {
     public interface ICloudinaryRequest
     {
-        public Task<ImageUploadResult> UploadImageAsync(IFormFile imageFile);
-        public Task<DeletionResult> DeleteImageAsync(string publicImageId);
+        Task<ImageUploadResult> UploadImageAsync(IFormFile imageFile);
+        Task<DeletionResult> DeleteImageAsync(string publicImageId);
     }
 }

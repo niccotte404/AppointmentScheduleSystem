@@ -16,7 +16,6 @@ namespace AppointmentScheduleSystem.Helpers
                 cloudinaryAccountOptions.Value.ApiSecret
                 );
             _cloudinary = new Cloudinary(account);
-            _cloudinary.Api.Secure = true;
         }
 
         public async Task<ImageUploadResult> UploadImageAsync(IFormFile imageFile)
