@@ -1,4 +1,6 @@
 ﻿using AppointmentScheduleSystem.Data;
+using AppointmentScheduleSystem.Helpers;
+using AppointmentScheduleSystem.Interfaces;
 using AppointmentScheduleSystem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,10 +8,12 @@ namespace AppointmentScheduleSystem.Controllers
 {
     public class CompanyController : Controller
     {
-        private readonly AppDbContext _context;
-        public CompanyController(AppDbContext context) 
+        private readonly ICloudinaryRequest _cloudinaryRequest;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public CompanyController(ICloudinaryRequest cloudinaryRequest, IHttpContextAccessor httpContextAccessor) 
         { 
-            _context = context;
+            _cloudinaryRequest = cloudinaryRequest;
+            _httpContextAccessor = httpContextAccessor;
         }
         public IActionResult Index()
         {
