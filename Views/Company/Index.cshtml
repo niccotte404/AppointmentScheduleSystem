@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Company>
+
+@{
 }
 
 <body>
@@ -19,15 +21,24 @@
         <div class="container">
             <div class="right-items">
                 <div class="row">
+                    @foreach (Company company in Model){
                     <div class="col-lg-3">
                         <div class="left-image">
-                            <img src="assets/images/service-details-01.jpg" alt="">
+                            <img src="@company.Image" alt="">
                         </div>
                         <div class="item">
-                            <h4>First Step</h4>
-                            <p>Pellentesque ipsum elit, congue a sapien laoreet, pellentesque ultricies risus.</p>
+                            <h4>@company.Name</h4>
+                                @if (@company.Description.Length > 80)
+                                {
+                                    for (int i = 0; i < 80; i++)
+                                    {
+                                        <text>@company.Description[i]</text>
+                                    }
+                                    <text>...</text>
+                                }
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         </div>

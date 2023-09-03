@@ -16,7 +16,7 @@ namespace AppointmentScheduleSystem.Models
         public string? Image { get; set; }
 
         [ForeignKey("Company")]
-        public string? CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         public Company? Company { get; set; }
         public string? Department { get; set; }
     }

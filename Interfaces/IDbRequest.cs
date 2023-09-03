@@ -4,9 +4,9 @@ namespace AppointmentScheduleSystem.Interfaces
 {
     public interface IDbRequest<T>
     {
-        Task<bool> AddAsync(T usingObject);
-        Task<bool> DeleteAsync(T usingObject);
-        Task<bool> UpdateAsync(T usingObject);
-        Task<bool> SaveAsync();
+        bool Add(T usingObject);
+        bool Delete(T usingObject);
+        bool Update(T usingObject);
+        bool Save();
     }
 }

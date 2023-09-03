@@ -1,6 +1,7 @@
 ﻿using AppointmentScheduleSystem.Data;
 using AppointmentScheduleSystem.Interfaces;
 using AppointmentScheduleSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppointmentScheduleSystem.Repositiry
 {
@@ -24,24 +25,24 @@ namespace AppointmentScheduleSystem.Repositiry
             return Save();
         }
 
-        public Task<IEnumerable<Company>> GetAllAsync()
+        public async Task<IEnumerable<Company>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Companies.ToListAsync();
         }
 
-        public Task<IEnumerable<Company>> GetByAppUserIdAsync(string appUserId)
+        public async Task<IEnumerable<Company>> GetByAppUserIdAsync(string appUserId)
         {
-            throw new NotImplementedException();
+            return await _context.Companies.Where(i => i.AppUserId == appUserId).ToListAsync();
         }
 
-        public Task<Company> GetByIdAsync(string id)
+        public async Task<Company> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Companies.FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public Task<Company> GetByNameAsync(string name)
+        public async Task<Company> GetByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await _context.Companies.FirstOrDefaultAsync(i => i.Name == name);
         }
 
         public bool Save()

@@ -1,6 +1,7 @@
 using AppointmentScheduleSystem.Data;
 using AppointmentScheduleSystem.Helpers;
 using AppointmentScheduleSystem.Interfaces;
+using AppointmentScheduleSystem.Repositiry;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICloudinaryRequest, CloudinaryRequest>();
+builder.Services.AddScoped<ICompanyDbRequest, CompanyDbRequest>();
 builder.Services.Configure<CloudinaryAccount>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
