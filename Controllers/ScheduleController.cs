@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AppointmentScheduleSystem.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentScheduleSystem.Controllers
 {
@@ -8,5 +9,17 @@ namespace AppointmentScheduleSystem.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateScheduleViewModel createScheduleViewModel)
+        {
+            return View();
+        }
+
     }
 }
