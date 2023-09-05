@@ -1323,20 +1323,39 @@ section.what-we-do {
         font-size: 44px;
         color: #43ba7f;
         font-weight: 600;
-        right: 15px;
-        top: 5px;
+        right: 30px;
+        top: 20px;
         transition: all .3s;
     }
 
+    .what-we-do .right-items .item text {
+        position: absolute;
+        font-style: normal;
+        font-size: 30px;
+        color: #43ba7f;
+        font-weight: 600;
+        right: 30px;
+        bottom: 30px;
+    }
+
     .what-we-do .right-items .item h4 {
-        font-size: 22px;
+        font-size: 30px;
         font-weight: 600;
         margin-bottom: 22px;
     }
 
-    .what-we-do .right-items .item:hover em {
-        top: 10px;
+    .what-we-do .right-items .item h5 {
+        font-size: 22px;
     }
+
+    .what-we-do .right-items .item {
+        transition: all .3s;
+    }
+
+    .what-we-do .right-items .item:hover {
+        background-color: #f0f0f0;
+    }
+    
 
 
 

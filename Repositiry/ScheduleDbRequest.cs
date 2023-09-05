@@ -31,6 +31,11 @@ namespace AppointmentScheduleSystem.Repositiry
             return await _context.Schedules.Where(elem => elem.CompanyId == id).ToListAsync();
         }
 
+        public async Task<IEnumerable<Schedule>> GetAllAsync()
+        {
+            return await _context.Schedules.Include(elem => elem.Date).ToListAsync();
+        }
+
         public bool Save()
         {
             var requestResult = _context.SaveChanges();

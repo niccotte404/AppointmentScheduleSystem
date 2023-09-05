@@ -10,9 +10,16 @@ namespace AppointmentScheduleSystem.Controllers
     public class ScheduleController : Controller
     {
         private readonly IScheduleDbRequest _dbRequest;
-        public IActionResult Index()
+
+        public ScheduleController(IScheduleDbRequest dbRequest)
         {
-            return View();
+            _dbRequest = dbRequest;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var schedule = await _dbRequest.GetAllAsync();
+            return View(schedule);
         }
 
         public async Task<IActionResult> Create()
@@ -31,13 +38,14 @@ namespace AppointmentScheduleSystem.Controllers
                     Title = createScheduleViewModel.Title,
                     Description = createScheduleViewModel.Description,
                     Cabinet = createScheduleViewModel.Cabinet,
+                    Time = createScheduleViewModel.Time,
                     Date = new Date
                     {
                         Day = createScheduleViewModel.Date.Day,
                         Month = createScheduleViewModel.Date.Month,
-                        Year = createScheduleViewModel.Date.Year
+                        Year = createScheduleViewModel.Date.Year,
                     },
-                    Time = createScheduleViewModel.Time
+                    // add company
                 };
                 _dbRequest.Add(schedule);
                 return RedirectToAction("Index");

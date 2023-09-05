@@ -1,5 +1,9 @@
-﻿@{
+﻿@using AppointmentScheduleSystem.Data.Enum
+@model IEnumerable<Schedule>
+
+@{
     ViewData["Title"] = "Schedule";
+    
 }
 
 <body>
@@ -20,26 +24,28 @@
         <div class="container">
             <div class="row">
                 <div class="right-items">
-                    <div class="item">
-                        <em>01</em> <!-- time -->
-                        <h4>First Step</h4>
-                        <p>Pellentesque ipsum elit, congue a sapien laoreet, pellentesque ultricies risus.</p>
-                    </div>
-                    <div class="item">
-                        <em>02</em>
-                        <h4>Second Step</h4>
-                        <p>Pellentesque ipsum elit, congue a sapien laoreet, pellentesque ultricies risus.</p>
-                    </div>
-                    <div class="item">
-                        <em>03</em>
-                        <h4>Third Step</h4>
-                        <p>Pellentesque ipsum elit, congue a sapien laoreet, pellentesque ultricies risus.</p>
-                    </div>
-                    <div class="item">
-                        <em>04</em>
-                        <h4>Fourth Step</h4>
-                        <p>Pellentesque ipsum elit, congue a sapien laoreet, pellentesque ultricies risus.</p>
-                    </div>
+                    @foreach (var meeting in Model)
+                    {
+                        var month = (Months)meeting.Date.Month;
+                        <div class="item">
+                            <h4>@meeting.Title - @meeting.Cabinet cab</h4>
+                            <div class="col-md-6">
+                                @if (@meeting.Description.Length > 75)
+                                {
+                                    for (int i = 0; i < 75; i++)
+                                    {
+                                        <text>@meeting.Description[i]</text>
+                                    }
+                                    <text>...</text>
+                                }
+                                else
+                                {
+                                    <text>@meeting.Description</text>
+                                }
+                            </div>
+                            <text>@meeting.Date.Day @month @meeting.Date.Year</text><em>@meeting.Time</em> <!-- time -->
+                        </div>
+                    }
                 </div>
             </div>
         </div>
