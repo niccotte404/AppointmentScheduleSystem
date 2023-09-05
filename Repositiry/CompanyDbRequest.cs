@@ -10,7 +10,7 @@ namespace AppointmentScheduleSystem.Repositiry
         private readonly AppDbContext _context;
         public CompanyDbRequest(AppDbContext context)
         {
-            _context = context;
+            _context = context; // create database context response
         }
 
         public bool Add(Company usingObject)
@@ -27,12 +27,12 @@ namespace AppointmentScheduleSystem.Repositiry
 
         public async Task<IEnumerable<Company>> GetAllAsync()
         {
-            return await _context.Companies.ToListAsync();
+            return await _context.Companies.ToListAsync(); // get all companies (used in Index)
         }
 
         public async Task<IEnumerable<Company>> GetByAppUserIdAsync(string appUserId)
         {
-            return await _context.Companies.Where(i => i.AppUserId == appUserId).ToListAsync();
+            return await _context.Companies.Where(i => i.AppUserId == appUserId).ToListAsync(); // get by app user id to math company with creator
         }
 
         public async Task<Company> GetByIdAsync(int id)
@@ -48,7 +48,7 @@ namespace AppointmentScheduleSystem.Repositiry
         public bool Save()
         {
             var result = _context.SaveChanges();
-            return result > 0 ? true : false;
+            return result > 0 ? true : false; // return true if response exists
         }
 
         public bool Update(Company usingObject)

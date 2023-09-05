@@ -15,28 +15,30 @@ namespace AppointmentScheduleSystem.Controllers
 
         public ScheduleController(IScheduleDbRequest dbRequest)
         {
-            _dbRequest = dbRequest;
+            _dbRequest = dbRequest; // create db connection
         }
 
         public async Task<IActionResult> Index()
         {
-            var schedule = await _dbRequest.GetAllAsync();
-            return View(schedule);
+            var schedule = await _dbRequest.GetAllAsync(); // get all meetings
+            return View(schedule); // send them to view
         }
 
         public async Task<IActionResult> Create()
         {
             CreateScheduleViewModel createScheduleViewModel = new CreateScheduleViewModel();
+            // attach to company here -----
             return View(createScheduleViewModel);
         }
 
+        // get post request
         [HttpPost]
         public async Task<IActionResult> Create(CreateScheduleViewModel createScheduleViewModel)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // model validation
             {
-                var monthInString = Enums.GetValues(typeof(Months)).Cast<Months>().Select(elem => elem.ToString()).ToList()[createScheduleViewModel.Date.Month];
-                if (SimpleDateValidation.Validate(createScheduleViewModel.Date.Day, monthInString, createScheduleViewModel.Date.Year))
+                var monthInString = Enums.GetValues(typeof(Months)).Cast<Months>().Select(elem => elem.ToString()).ToList()[createScheduleViewModel.Date.Month]; // get month from enum by index and convert it to string
+                if (SimpleDateValidation.Validate(createScheduleViewModel.Date.Day, monthInString, createScheduleViewModel.Date.Year)) // validate date data
                 {
                     var schedule = new Schedule
                     {
@@ -51,7 +53,7 @@ namespace AppointmentScheduleSystem.Controllers
                             Year = createScheduleViewModel.Date.Year,
                         },
                         // add company
-                    };
+                    }; // map
                     _dbRequest.Add(schedule);
                     return RedirectToAction("Index");
                 }

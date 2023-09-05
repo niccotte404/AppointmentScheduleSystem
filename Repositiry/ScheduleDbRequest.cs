@@ -11,7 +11,7 @@ namespace AppointmentScheduleSystem.Repositiry
 
         public ScheduleDbRequest(AppDbContext context)
         {
-            _context = context;
+            _context = context; // create database response
         }
 
         public bool Add(Schedule usingObject)
@@ -28,18 +28,18 @@ namespace AppointmentScheduleSystem.Repositiry
 
         public async Task<IEnumerable<Schedule>> GetAllByCompanyIdAsync(int id)
         {
-            return await _context.Schedules.Where(elem => elem.CompanyId == id).ToListAsync();
+            return await _context.Schedules.Where(elem => elem.CompanyId == id).ToListAsync(); // get by company id to match schedule with each company
         }
 
         public async Task<IEnumerable<Schedule>> GetAllAsync()
         {
-            return await _context.Schedules.Include(elem => elem.Date).ToListAsync();
+            return await _context.Schedules.Include(elem => elem.Date).ToListAsync(); // get all (used in Index)
         }
 
         public bool Save()
         {
             var requestResult = _context.SaveChanges();
-            return requestResult > 0 ? true : false;
+            return requestResult > 0 ? true : false; // return true if response exists
         }
 
         public bool Update(Schedule usingObject)

@@ -14,7 +14,7 @@ namespace AppointmentScheduleSystem.Models
         public string Phone { get; set; }
         public string? Image { get; set; }
 
-        [ForeignKey("AppUser")]
+        [ForeignKey("AppUser")] // [Key] annotation for foreign field
         public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
     }

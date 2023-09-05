@@ -1,5 +1,4 @@
-﻿using AppointmentScheduleSystem.DataValidtion.Enum;
-using EnumsNET;
+﻿using EnumsNET;
 
 namespace AppointmentScheduleSystem.DataValidtion.Repository
 {
@@ -7,16 +6,17 @@ namespace AppointmentScheduleSystem.DataValidtion.Repository
     {
         public static bool Validate(string requestedMonth)
         {
-            var months = Enums.GetValues(typeof(T)).Cast<T>().Select(elem => elem.ToString());
+            var months = Enums.GetValues(typeof(T)).Cast<T>().Select(elem => elem.ToString()); // get all month from enum using tempalte
 
+            // find requested month in enum
             foreach (var month in months)
             {
                 if (month == requestedMonth)
                 {
-                    return true;
+                    return true; // if found => true
                 }
             }
-            return false;
+            return false; // else => false
         }
     }
 }

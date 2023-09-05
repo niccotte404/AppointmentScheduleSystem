@@ -5,6 +5,7 @@ namespace AppointmentScheduleSystem.ViewModels
 {
     public class CreateScheduleViewModel
     {
+        // set params that often used to match view and model (database)
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

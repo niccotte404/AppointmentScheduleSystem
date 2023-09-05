@@ -1,6 +1,4 @@
-﻿using AppointmentScheduleSystem.Data;
-using AppointmentScheduleSystem.Helpers;
-using AppointmentScheduleSystem.Interfaces;
+﻿using AppointmentScheduleSystem.Interfaces;
 using AppointmentScheduleSystem.Models;
 using AppointmentScheduleSystem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -9,32 +7,37 @@ namespace AppointmentScheduleSystem.Controllers
 {
     public class CompanyController : Controller
     {
-        private readonly ICloudinaryRequest _cloudinaryRequest;
-        private readonly ICompanyDbRequest _dbRequest;
+        private readonly ICloudinaryRequest _cloudinaryRequest; // cloudinary api
+        private readonly ICompanyDbRequest _dbRequest; // 
         public CompanyController(ICloudinaryRequest cloudinaryRequest, ICompanyDbRequest dbRequest) 
         { 
-            _cloudinaryRequest = cloudinaryRequest;
-            _dbRequest = dbRequest;
-        }
-        public async Task<IActionResult> IndexAsync()
-        {
-            var companies = await _dbRequest.GetAllAsync();
-            return View(companies);
+            _cloudinaryRequest = cloudinaryRequest; // make connection to cloudinary api
+            _dbRequest = dbRequest; // make connection to database
         }
 
+        // main page
+        public async Task<IActionResult> Index()
+        {
+            var companies = await _dbRequest.GetAllAsync(); // get all companies data
+            return View(companies); // redirect it to view
+        }
+
+        // get request to create company page
         [HttpGet]
         public IActionResult Create()
         {
             var createCompanyViewModel = new CreateCompanyViewModel();
+            // need to match here with user ------
             return View(createCompanyViewModel);
         }
 
+        // post request to create company page
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyViewModel createCompanyViewModel)
         {
             if (ModelState.IsValid)
             {
-                var resultImageUpload = await _cloudinaryRequest.UploadImageAsync(createCompanyViewModel.Image);
+                var resultImageUpload = await _cloudinaryRequest.UploadImageAsync(createCompanyViewModel.Image); // get response from cloudinary
                 var company = new Company
                 {
                     Name = createCompanyViewModel.Name,
@@ -43,12 +46,13 @@ namespace AppointmentScheduleSystem.Controllers
                     Email = createCompanyViewModel.Email,
                     Image = resultImageUpload.Url.ToString()
                 };
-                _dbRequest.Add(company);
+                // map data from view with main model
+                _dbRequest.Add(company); // attach data to database
                 return RedirectToAction("Index");
             }
             else
             {
-                ModelState.AddModelError("", "Image upload error");
+                ModelState.AddModelError("", "Image upload error"); // image upload validation
             }
             return View(createCompanyViewModel);
         }

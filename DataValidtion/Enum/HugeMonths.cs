@@ -1,6 +1,6 @@
 ﻿namespace AppointmentScheduleSystem.DataValidtion.Enum
 {
-    public enum HugeMonths
+    public enum HugeMonths // month with 31 day
     {
         January,
         March,
