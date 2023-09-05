@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICloudinaryRequest, CloudinaryRequest>();
 builder.Services.AddScoped<ICompanyDbRequest, CompanyDbRequest>();
+builder.Services.AddScoped<IScheduleDbRequest, ScheduleDbRequest>();
 builder.Services.Configure<CloudinaryAccount>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

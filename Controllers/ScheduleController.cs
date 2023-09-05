@@ -1,5 +1,7 @@
 ﻿using AppointmentScheduleSystem.Data;
 using AppointmentScheduleSystem.Data.Enum;
+using AppointmentScheduleSystem.Interfaces;
+using AppointmentScheduleSystem.Models;
 using AppointmentScheduleSystem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +9,7 @@ namespace AppointmentScheduleSystem.Controllers
 {
     public class ScheduleController : Controller
     {
+        private readonly IScheduleDbRequest _dbRequest;
         public IActionResult Index()
         {
             return View();
@@ -14,32 +17,36 @@ namespace AppointmentScheduleSystem.Controllers
 
         public async Task<IActionResult> Create()
         {
-            return View();
+            CreateScheduleViewModel createScheduleViewModel = new CreateScheduleViewModel();
+            return View(createScheduleViewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateScheduleViewModel createScheduleViewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var schedule = new Schedule
+                {
+                    Title = createScheduleViewModel.Title,
+                    Description = createScheduleViewModel.Description,
+                    Cabinet = createScheduleViewModel.Cabinet,
+                    Date = new Date
+                    {
+                        Day = createScheduleViewModel.Date.Day,
+                        Month = createScheduleViewModel.Date.Month,
+                        Year = createScheduleViewModel.Date.Year
+                    },
+                    Time = createScheduleViewModel.Time
+                };
+                _dbRequest.Add(schedule);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "failed to add model to db");
+            }
+            return View(createScheduleViewModel);
         }
-
-        private async Task<bool> IsDayValid(int day, string month, int year)
-        {
-            IEnumerable<string> months = new[] { "January", "March", "May", "July", "August", "October", "December" };
-            if (day < 1 || day > 31 || year < 2023)
-            {
-                return false;
-            }
-            else if (day > 30 && months.FirstOrDefault(elem => elem == month) == null)
-            {
-                return false;
-            }
-            else if (day > 28 && month == "February")
-            {
-                return false;
-            }
-            return true;
-        }
-
     }
 }
