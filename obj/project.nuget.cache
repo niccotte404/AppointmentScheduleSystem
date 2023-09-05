@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "EoDQMSZXSVPuUiyQtdhuuHsVaHs9r5M9fKF/0ivqc3IOitnM3F7bPVaITvamDzih4St0pEVqcOUtbeJvUJ/o8Q==",
+  "dgSpecHash": "mlLKBsf54nN7RxW++86GGj/VVqslvyUmZbQN6IACJzT8xTSA2wWre9ICLRafxgDo/MZMhCZLmS3BWzZlU0znMw==",
   "success": true,
   "projectFilePath": "C:\\CSProj\\AppointmentScheduleSystem\\AppointmentScheduleSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Acer\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\cloudinarydotnet\\1.22.0\\cloudinarydotnet.1.22.0.nupkg.sha512",
+    "C:\\Users\\Acer\\.nuget\\packages\\enums.net\\4.0.1\\enums.net.4.0.1.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.21\\microsoft.aspnetcore.cryptography.internal.6.0.21.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.21\\microsoft.aspnetcore.cryptography.keyderivation.6.0.21.nupkg.sha512",

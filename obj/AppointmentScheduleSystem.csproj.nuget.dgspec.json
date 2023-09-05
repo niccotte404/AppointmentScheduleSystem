@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[1.22.0, )"
             },
+            "Enums.NET": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.21, )"
