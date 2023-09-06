@@ -1,4 +1,5 @@
 ﻿using AppointmentScheduleSystem.DataValidtion.Enum;
+using AppointmentScheduleSystem.DataValidtion.Helpers;
 using EnumsNET;
 
 namespace AppointmentScheduleSystem.DataValidtion.Repository

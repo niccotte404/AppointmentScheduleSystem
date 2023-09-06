@@ -40,22 +40,29 @@ namespace AppointmentScheduleSystem.Controllers
                 var monthInString = Enums.GetValues(typeof(Months)).Cast<Months>().Select(elem => elem.ToString()).ToList()[createScheduleViewModel.Date.Month]; // get month from enum by index and convert it to string
                 if (SimpleDateValidation.Validate(createScheduleViewModel.Date.Day, monthInString, createScheduleViewModel.Date.Year)) // validate date data
                 {
-                    var schedule = new Schedule
+                    if (SimpleTimeValidation.IsTimeValid(createScheduleViewModel.Time))
                     {
-                        Title = createScheduleViewModel.Title,
-                        Description = createScheduleViewModel.Description,
-                        Cabinet = createScheduleViewModel.Cabinet,
-                        Time = createScheduleViewModel.Time,
-                        Date = new Date
+                        var schedule = new Schedule
                         {
-                            Day = createScheduleViewModel.Date.Day,
-                            Month = createScheduleViewModel.Date.Month, // здесь можно по идее сразу перевести enum значение в sring, но я заколебался туда сюда мотать бд
-                            Year = createScheduleViewModel.Date.Year,
-                        },
-                        // add company
-                    }; // map
-                    _dbRequest.Add(schedule);
-                    return RedirectToAction("Index");
+                            Title = createScheduleViewModel.Title,
+                            Description = createScheduleViewModel.Description,
+                            Cabinet = createScheduleViewModel.Cabinet,
+                            Time = createScheduleViewModel.Time,
+                            Date = new Date
+                            {
+                                Day = createScheduleViewModel.Date.Day,
+                                Month = createScheduleViewModel.Date.Month, // здесь можно по идее сразу перевести enum значение в sring, но я заколебался туда сюда мотать бд
+                                Year = createScheduleViewModel.Date.Year,
+                            },
+                            // add company
+                        }; // map
+                        _dbRequest.Add(schedule);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return View("Error");
+                    }
                 }
                 else
                 {

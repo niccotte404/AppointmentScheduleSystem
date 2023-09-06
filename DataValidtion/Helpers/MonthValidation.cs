@@ -1,10 +1,10 @@
 ﻿using EnumsNET;
 
-namespace AppointmentScheduleSystem.DataValidtion.Repository
+namespace AppointmentScheduleSystem.DataValidtion.Helpers
 {
-    public static class MonthValidation<T>
+    internal static class MonthValidation<T>
     {
-        public static bool Validate(string requestedMonth)
+        internal static bool Validate(string requestedMonth)
         {
             var months = Enums.GetValues(typeof(T)).Cast<T>().Select(elem => elem.ToString()); // get all month from enum using tempalte
 
