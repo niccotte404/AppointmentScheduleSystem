@@ -33,6 +33,7 @@
                 <fieldset>
                   <input asp-for="Name" type="text" placeholder="Company Name..." required="">
                 </fieldset>
+                <span class="text-danger" asp-validation-for="Name" />
               </div>
               <div class="col-lg-6">
                 <fieldset>
@@ -48,6 +49,7 @@
                 <fieldset>
                   <input asp-for="Email" type="text" name="email" id="email" placeholder="Company E-mail..." required="">
                 </fieldset>
+                <span class="text-danger" asp-validation-for="Email" />
               </div>
               <div class="col-lg-6">
                 <fieldset>

@@ -1588,7 +1588,7 @@ section.map .info-item {
     padding: 0px 15px;
     font-size: 14px;
     outline: none;
-    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 #contact textarea {
@@ -1603,7 +1603,7 @@ section.map .info-item {
     padding: 15px 15px;
     font-size: 14px;
     outline: none;
-    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
     #contact input::placeholder,
@@ -1624,11 +1624,13 @@ section.map .info-item {
     letter-spacing: 0.5px;
     border: none;
     transition: all .3s;
+    margin-top: 30px;
 }
 
     #contact button.orange-button:hover {
         background-color: #43ba7f;
     }
+
 
 
 /* 
