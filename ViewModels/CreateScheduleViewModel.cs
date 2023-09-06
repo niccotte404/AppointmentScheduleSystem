@@ -1,5 +1,4 @@
 ﻿using AppointmentScheduleSystem.Models;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppointmentScheduleSystem.ViewModels
 {

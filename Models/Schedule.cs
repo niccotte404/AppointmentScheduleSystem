@@ -12,14 +12,18 @@ namespace AppointmentScheduleSystem.Models
         public int? CompanyId { get; set; }
         public Company? Company { get; set; }
 
+        [Required]
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
+
+        [Required]
         public string Cabinet { get; set; }
 
         [ForeignKey("Date")] // [Key] annotation for foreign field
         public int? DateId { get; set; }
         public Date? Date { get; set; }
 
+        [Required]
         public string Time { get; set; }
     }
 }
