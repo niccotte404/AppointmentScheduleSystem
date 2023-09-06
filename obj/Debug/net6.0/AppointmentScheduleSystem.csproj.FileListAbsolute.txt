@@ -92,3 +92,4 @@ C:\CSProj\AppointmentScheduleSystem\bin\Debug\net6.0\Microsoft.Extensions.Identi
 C:\CSProj\AppointmentScheduleSystem\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\CSProj\AppointmentScheduleSystem\bin\Debug\net6.0\CloudinaryDotNet.dll
 C:\CSProj\AppointmentScheduleSystem\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\CSProj\AppointmentScheduleSystem\bin\Debug\net6.0\Enums.NET.dll

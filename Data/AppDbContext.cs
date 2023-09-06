@@ -10,6 +10,8 @@ namespace AppointmentScheduleSystem.Data
         {
             
         }
+
+        // set colomns with these names
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<AppUser> AppUsers { get; set; } = null!;
         public DbSet<Schedule> Schedules { get; set; } = null!;

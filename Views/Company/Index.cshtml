@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="header-text">
-                        <h2>Schedule</h2>
+                        <h2>Companies</h2>
                         <div class="div-dec"></div>
                     </div>
                 </div>
@@ -22,22 +22,26 @@
             <div class="right-items">
                 <div class="row">
                     @foreach (Company company in Model){
-                    <div class="col-lg-3">
-                        <div class="left-image">
-                            <img src="@company.Image" alt="">
-                        </div>
-                        <div class="item">
-                            <h4>@company.Name</h4>
-                                @if (@company.Description.Length > 80)
-                                {
-                                    for (int i = 0; i < 80; i++)
+                        <div class="col-lg-3">
+                            <div class="left-image">
+                                <img src="@company.Image" alt="">
+                            </div>
+                            <div class="item">
+                                <h4>@company.Name</h4>
+                                    @if (@company.Description.Length > 80)
                                     {
-                                        <text>@company.Description[i]</text>
-                                    }
+                                        for (int i = 0; i < 80; i++)
+                                        {
+                                            <text>@company.Description[i]</text>
+                                        }
                                     <text>...</text>
-                                }
+                                    }
+                                    else
+                                    {
+                                        <text>@company.Description</text>
+                                    }
+                            </div>
                         </div>
-                    </div>
                     }
                 </div>
             </div>

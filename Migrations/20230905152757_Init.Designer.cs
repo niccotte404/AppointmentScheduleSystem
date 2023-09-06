@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppointmentScheduleSystem.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230831204234_Init")]
+    [Migration("20230905152757_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -33,8 +33,8 @@ namespace AppointmentScheduleSystem.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("CompanyId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -118,7 +118,13 @@ namespace AppointmentScheduleSystem.Migrations
 
             modelBuilder.Entity("AppointmentScheduleSystem.Models.Company", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -142,6 +148,10 @@ namespace AppointmentScheduleSystem.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId")
+                        .IsUnique()
+                        .HasFilter("[AppUserId] IS NOT NULL");
+
                     b.ToTable("Companies");
                 });
 
@@ -156,9 +166,8 @@ namespace AppointmentScheduleSystem.Migrations
                     b.Property<int>("Day")
                         .HasColumnType("int");
 
-                    b.Property<string>("Month")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -180,8 +189,8 @@ namespace AppointmentScheduleSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CompanyId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("DateId")
                         .HasColumnType("int");
@@ -347,6 +356,15 @@ namespace AppointmentScheduleSystem.Migrations
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("AppointmentScheduleSystem.Models.Company", b =>
+                {
+                    b.HasOne("AppointmentScheduleSystem.Models.AppUser", "AppUser")
+                        .WithOne()
+                        .HasForeignKey("AppointmentScheduleSystem.Models.Company", "AppUserId");
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("AppointmentScheduleSystem.Models.Schedule", b =>
