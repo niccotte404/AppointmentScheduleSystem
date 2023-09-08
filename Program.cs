@@ -1,7 +1,10 @@
 using AppointmentScheduleSystem.Data;
 using AppointmentScheduleSystem.Helpers;
 using AppointmentScheduleSystem.Interfaces;
+using AppointmentScheduleSystem.Models;
 using AppointmentScheduleSystem.Repositiry;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +15,8 @@ builder.Services.AddScoped<ICloudinaryRequest, CloudinaryRequest>(); // set impl
 builder.Services.AddScoped<ICompanyDbRequest, CompanyDbRequest>();
 builder.Services.AddScoped<IScheduleDbRequest, ScheduleDbRequest>();
 builder.Services.Configure<CloudinaryAccount>(builder.Configuration.GetSection("CloudinarySettings")); // send cloudinary account data from appsettings.json to used model
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -32,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
