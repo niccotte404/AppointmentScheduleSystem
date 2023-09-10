@@ -17,11 +17,6 @@ namespace AppointmentScheduleSystem.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public async Task<IActionResult> Register()
         {
@@ -88,7 +83,6 @@ namespace AppointmentScheduleSystem.Controllers
         }
 
 
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             // delete authentication cookies and logout
