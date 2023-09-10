@@ -176,6 +176,7 @@ body {
         opacity: 0.9;
     }
 
+
 section {
     margin-top: 120px;
 }
@@ -1587,13 +1588,15 @@ section.map .info-item {
     width: 4%;
     height: 20px;
     margin-top: 30px;
+    margin-left: auto;
     background-color: #ff511a;
     color: #fff;
+    border-radius: 5px;
 }
 
 #contact label.form-check-label {
     margin-top: 30px;
-    margin-left: 30px;
+    margin-left: 20px;
 }
 
 
@@ -1603,7 +1606,6 @@ section.map .info-item {
     background-color: #f7f7f7;
     color: #212741;
     border-radius: 5px;
-    border: none;
     padding: 0px 15px;
     font-size: 14px;
     outline: none;
