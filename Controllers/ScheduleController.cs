@@ -55,7 +55,7 @@ namespace AppointmentScheduleSystem.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Failed to add model to db");
+                ModelState.AddModelError(string.Empty, "Failed to add model to db");
             }
             return View(createScheduleViewModel);
         }
