@@ -52,7 +52,7 @@ namespace AppointmentScheduleSystem.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Image upload error"); // image upload validation
+                ModelState.AddModelError(string.Empty, "Image upload error"); // image upload validation
             }
             return View(createCompanyViewModel);
         }

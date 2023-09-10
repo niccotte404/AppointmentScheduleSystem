@@ -1,0 +1,52 @@
+﻿@using AppointmentScheduleSystem.ViewModels
+@model LoginViewModel
+
+@{
+}
+
+<body>
+    <div class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="header-text">
+                        <h2>Login</h2>
+                        <div class="div-dec"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="login-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <form id="contact" asp-controller="account" asp-action="login" method="post" enctype="multipart/form-data">
+                        <div class="col-lg-6">
+                            <fieldset>
+                                <input asp-for="Email" type="text" name="email" id="email" placeholder="E-mail..." required="">
+                            </fieldset>
+                            <span class="text-danger" asp-validation-for="Email" />
+                        </div>
+                        <div class="col-lg-6">
+                            <fieldset>
+                                <input asp-for="Password" type="password" name="password" id="password" placeholder="Password..." required="">
+                            </fieldset>
+                            <span class="text-danger" asp-validation-for="Password" />
+                        </div>
+                        <div class="form-check form-switch">
+                            <input asp-for="RememberMe" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Remember Me</label>
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="orange-button">Submit</button>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="white-section"></section>
+</body>
