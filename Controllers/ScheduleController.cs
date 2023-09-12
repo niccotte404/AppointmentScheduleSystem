@@ -1,25 +1,54 @@
-﻿using AppointmentScheduleSystem.Data.Enum;
+﻿using System.Collections;
+using System.Security.Claims;
+using AppointmentScheduleSystem.Data.Enum;
 using AppointmentScheduleSystem.DataValidtion.ValidateModels;
 using AppointmentScheduleSystem.Interfaces;
 using AppointmentScheduleSystem.Models;
 using AppointmentScheduleSystem.ViewModels;
 using EnumsNET;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentScheduleSystem.Controllers
 {
     public class ScheduleController : Controller
     {
-        private readonly IScheduleDbRequest _dbRequest;
-
-        public ScheduleController(IScheduleDbRequest dbRequest)
+        private readonly IScheduleDbRequest _scheduleDbRequest; // db request ot schedule table
+        private readonly ICompanyDbRequest _companyDbRequest; // db request ot company table
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ScheduleController(IScheduleDbRequest scheduleDbRequest, ICompanyDbRequest companyDbRequest, SignInManager<AppUser> signInManager, IHttpContextAccessor httpContextAccessor)
         {
-            _dbRequest = dbRequest; // create db connection
+            _scheduleDbRequest = scheduleDbRequest;
+            _companyDbRequest = companyDbRequest;
+            _signInManager = signInManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index()
         {
-            var schedule = await _dbRequest.GetAllAsync(); // get all meetings
+            IEnumerable<Schedule> schedule = new List<Schedule>(); // init main schedule
+            
+            if (_signInManager.IsSignedIn(User)) // is user authorised
+            {
+                string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); // get user id with context accessor
+                IEnumerable<Company> companies = await _companyDbRequest.GetByAppUserIdAsync(userId); // get company list of current user
+                
+                // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                // change companies to user (not only to owner)
+                
+                foreach (var company in companies)
+                {
+                    IEnumerable<Schedule> companySchedule = await _scheduleDbRequest.GetAllByCompanyIdAsync(company.Id); // get schedule of current company
+                    // the complexity of algorithm is O(n) 'cause there is very view amount of companies
+                    foreach (var meeting in companySchedule)
+                    {
+                        schedule.Append(meeting); // add meeting to main schedule
+                    }
+                }
+
+                return View(schedule);
+            }
             return View(schedule); // send them to view
         }
 
@@ -50,7 +79,7 @@ namespace AppointmentScheduleSystem.Controllers
                     }
                     // add company
                 }; // map
-                _dbRequest.Add(schedule);
+                _scheduleDbRequest.Add(schedule);
                 return RedirectToAction("Index");
             }
             else
