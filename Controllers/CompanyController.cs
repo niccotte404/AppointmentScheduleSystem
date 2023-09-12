@@ -1,6 +1,7 @@
 ﻿using AppointmentScheduleSystem.Interfaces;
 using AppointmentScheduleSystem.Models;
 using AppointmentScheduleSystem.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentScheduleSystem.Controllers
@@ -9,10 +10,12 @@ namespace AppointmentScheduleSystem.Controllers
     {
         private readonly ICloudinaryRequest _cloudinaryRequest; // cloudinary api
         private readonly ICompanyDbRequest _dbRequest; // 
-        public CompanyController(ICloudinaryRequest cloudinaryRequest, ICompanyDbRequest dbRequest) 
+        private readonly SignInManager<AppUser> _signInManager;
+        public CompanyController(ICloudinaryRequest cloudinaryRequest, ICompanyDbRequest dbRequest, SignInManager<AppUser> signInManager) 
         { 
             _cloudinaryRequest = cloudinaryRequest; // make connection to cloudinary api
             _dbRequest = dbRequest; // make connection to database
+            _signInManager = signInManager; // mace connection to database with identity frmwk
         }
 
         // main page
@@ -35,7 +38,7 @@ namespace AppointmentScheduleSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyViewModel createCompanyViewModel)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && _signInManager.IsSignedIn(User))
             {
                 var resultImageUpload = await _cloudinaryRequest.UploadImageAsync(createCompanyViewModel.Image); // get response from cloudinary
                 var company = new Company
