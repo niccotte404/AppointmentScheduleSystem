@@ -1,4 +1,6 @@
 ﻿@using AppointmentScheduleSystem.Data.Enum
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
 @model IEnumerable<Schedule>
 
 @{
@@ -23,30 +25,46 @@
     <section class="what-we-do">
         <div class="container">
             <div class="row">
-                <div class="right-items">
-                    @foreach (var meeting in Model)
-                    {
-                        var month = (Months)meeting.Date.Month;
-                        <div class="item">
-                            <h4>@meeting.Title - @meeting.Cabinet cab</h4>
-                            <div class="col-md-6">
-                                @if (@meeting.Description.Length > 75)
-                                {
-                                    for (int i = 0; i < 75; i++)
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div class="right-items">
+                        @foreach (var meeting in Model)
+                        {
+                            var month = (Months)meeting.Date.Month;
+                            <div class="item">
+                                <h4>@meeting.Title - @meeting.Cabinet cab</h4>
+                                <div class="col-md-6">
+                                    @if (@meeting.Description.Length > 75)
                                     {
-                                        <text>@meeting.Description[i]</text>
+                                        for (int i = 0; i < 75; i++)
+                                        {
+                                            <text>@meeting.Description[i]</text>
+                                        }
+                                        <text>...</text>
                                     }
-                                    <text>...</text>
-                                }
-                                else
-                                {
-                                    <text>@meeting.Description</text>
-                                }
+                                    else
+                                    {
+                                        <text>@meeting.Description</text>
+                                    }
+                                </div>
+                                <text>@meeting.Date.Day @month @meeting.Date.Year</text><em>@meeting.Time</em> <!-- time -->
                             </div>
-                            <text>@meeting.Date.Day @month @meeting.Date.Year</text><em>@meeting.Time</em> <!-- time -->
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-3">
+                            <div class="section-heading">
+                                <h4>
+                                    If you already have account: <a asp-controller="account" asp-action="login" class="text-decoration-underline">Login</a><br /><br />
+                                    If you don't have account: <a asp-controller="account" asp-action="register" class="text-decoration-underline">Register</a>
+                                </h4>
+                            </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
         </div>
     </section>

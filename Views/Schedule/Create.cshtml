@@ -1,5 +1,7 @@
 ﻿@using AppointmentScheduleSystem.ViewModels
 @using AppointmentScheduleSystem.Data.Enum
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
 @model CreateScheduleViewModel
 
 @{
@@ -20,71 +22,87 @@
     </div>
     <section class="contact-us-form">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3">
-                    <div class="section-heading">
-                        <h6>make your meeting</h6>
-                        <h4>Fill all required fields</h4>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="section-heading">
+                            <h6>make your meeting</h6>
+                            <h4>Fill all required fields</h4>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-10 offset-lg-1">
-                    <form id="contact" asp-action="create" method="post" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <fieldset>
-                                    <input asp-for="Title" type="text" placeholder="Meeting Title..." required="">
-                                </fieldset>
-                                <span class="text-danger" asp-validation-for="Title" />
-                            </div>
-                            <div class="col-lg-6">
-                                <fieldset>
-                                    <input asp-for="Description" type="text" placeholder="Meeting Description...">
-                                </fieldset>
-                            </div>
-                            <div class="col-lg-6">
-                                <fieldset>
-                                    <input asp-for="Cabinet" type="text" placeholder="Meeting Cabinet..." required="">
-                                </fieldset>
-                                <span class="text-danger" asp-validation-for="Cabinet" />
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <fieldset>
-                                            <input asp-for="Date.Day" type="text" placeholder="Day..." required="">
-                                        </fieldset>
-                                        <span class="text-danger" asp-validation-for="Date.Day" />
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <fieldset>
-                                            <select asp-for="Date.Month" asp-items="@Html.GetEnumSelectList<Months>()">
-                                                <option>Month...</option>
-                                            </select>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <fieldset>
-                                            <input asp-for="Date.Year" type="text" placeholder="Year..." required="">
-                                        </fieldset>
-                                        <span class="text-danger" asp-validation-for="Date.Year" />
+                    <div class="col-lg-10 offset-lg-1">
+                        <form id="contact" asp-action="create" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <fieldset>
+                                        <input asp-for="Title" type="text" placeholder="Meeting Title..." required="">
+                                    </fieldset>
+                                    <span class="text-danger" asp-validation-for="Title" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset>
+                                        <input asp-for="Description" type="text" placeholder="Meeting Description...">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <fieldset>
+                                        <input asp-for="Cabinet" type="text" placeholder="Meeting Cabinet..." required="">
+                                    </fieldset>
+                                    <span class="text-danger" asp-validation-for="Cabinet" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <fieldset>
+                                                <input asp-for="Date.Day" type="text" placeholder="Day..." required="">
+                                            </fieldset>
+                                            <span class="text-danger" asp-validation-for="Date.Day" />
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <fieldset>
+                                                <select asp-for="Date.Month" asp-items="@Html.GetEnumSelectList<Months>()">
+                                                    <option>Month...</option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <fieldset>
+                                                <input asp-for="Date.Year" type="text" placeholder="Year..." required="">
+                                            </fieldset>
+                                            <span class="text-danger" asp-validation-for="Date.Year" />
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <fieldset>
+                                        <input asp-for="Time" type="text" placeholder="Time..." required="">
+                                    </fieldset>
+                                    <span class="text-danger" asp-validation-for="Time" />
+                                </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="orange-button">Submit</button>
+                                    </fieldset>
+                                </div>
                             </div>
-                            <div class="col-lg-6">
-                                <fieldset>
-                                    <input asp-for="Time" type="text" placeholder="Time..." required="">
-                                </fieldset>
-                                <span class="text-danger" asp-validation-for="Time" />
-                            </div>
-                            <div class="col-lg-12">
-                                <fieldset>
-                                    <button type="submit" id="form-submit" class="orange-button">Submit</button>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="section-heading">
+                            <h4>
+                                If you already have account: <a asp-controller="account" asp-action="login" class="text-decoration-underline">Login</a><br /><br />
+                                If you don't have account: <a asp-controller="account" asp-action="register" class="text-decoration-underline">Register</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </section>
     <section class="white-section"></section>
