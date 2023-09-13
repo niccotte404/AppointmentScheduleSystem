@@ -1,6 +1,7 @@
 ﻿using AppointmentScheduleSystem.Data;
 using AppointmentScheduleSystem.Interfaces;
 using AppointmentScheduleSystem.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AppointmentScheduleSystem.Repositiry
@@ -8,9 +9,11 @@ namespace AppointmentScheduleSystem.Repositiry
     public class CompanyDbRequest : ICompanyDbRequest
     {
         private readonly AppDbContext _context;
-        public CompanyDbRequest(AppDbContext context)
+        private readonly SignInManager<AppUser> _signInManager;
+        public CompanyDbRequest(AppDbContext context, SignInManager<AppUser> signInManager)
         {
             _context = context; // create database context response
+            _signInManager = signInManager;
         }
 
         public bool Add(Company usingObject)
@@ -43,6 +46,14 @@ namespace AppointmentScheduleSystem.Repositiry
         public async Task<Company> GetByNameAsync(string name)
         {
             return await _context.Companies.FirstOrDefaultAsync(i => i.Name == name);
+        }
+
+        public async Task<bool> EditCompanyId(int id)
+        {
+            var currentUser = await _signInManager.UserManager.GetUserAsync(User);
+            currentUser.CompanyId = id;
+            var updateResult = await _signInManager.UserManager.UpdateAsync(currentUser);
+            return updateResult is null ? true : false;
         }
 
         public bool Save()

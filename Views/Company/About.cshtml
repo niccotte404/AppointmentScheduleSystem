@@ -1,4 +1,5 @@
-﻿@model Company
+﻿@using AppointmentScheduleSystem.Controllers
+@model Company
 
 @{
     ViewBag.Title = "title";
@@ -6,45 +7,57 @@
 }
 
 <body>
-  <div class="page-heading">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="header-text">
-            <h2>@Model.Name</h2>
-            <div class="div-dec"></div>
-          </div>
+    <div class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="header-text">
+                    <h2>@Model.Name</h2>
+                    <div class="div-dec"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
   <!-- ***** Main Banner Area End ***** -->
 
-  <section class="main-services">
+    <section class="main-services">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="service-item">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="left-image">
-                  <img src="@Model.Image" alt="">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="service-item">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="left-image">
+                                <img src="@Model.Image" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 align-self-center">
+                            <div class="right-text-content">
+                                <i class="fas fa-archive"></i>
+                                <list>
+                                    <ul>
+                                        <h6>Description: @Model.Description</h6>
+                                    </ul>
+                                    <ul>
+                                        <h6>Email: @Model.Email</h6>
+                                    </ul>
+                                    <ul>
+                                        <h6>Phone: @Model.Phone</h6>
+                                    </ul>
+                                </list>
+                                <div class="green-button">
+                                    @
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-lg-6 align-self-center">
-                <div class="right-text-content">
-                  <i class="fas fa-archive"></i>
-                  <h4>Digital Currencies</h4>
-                  <p>You will see a bunch of free CSS templates when you search on Google. TemplateMo is the best one because it is 100% free for anyone. We do not ask you anything in return. You are free to use our templates for any purpose.</p>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </section>
+    </section>
 
   <section class="white-section"></section>
 
