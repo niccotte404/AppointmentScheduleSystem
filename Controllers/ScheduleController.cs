@@ -8,6 +8,7 @@ using AppointmentScheduleSystem.ViewModels;
 using EnumsNET;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AppointmentScheduleSystem.Controllers
 {
@@ -35,8 +36,12 @@ namespace AppointmentScheduleSystem.Controllers
                 IEnumerable<Company> companies = await _companyDbRequest.GetByAppUserIdAsync(userId); // get company list of current user
                 
                 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                // change companies to user (not only to owner)
-                
+                // change companies to user (not only to owner) => make matching user with company by search
+
+                if (companies.IsNullOrEmpty())
+                {
+                    return RedirectToAction("Index", "Company");
+                }
                 foreach (var company in companies)
                 {
                     IEnumerable<Schedule> companySchedule = await _scheduleDbRequest.GetAllByCompanyIdAsync(company.Id); // get schedule of current company

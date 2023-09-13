@@ -25,6 +25,14 @@ namespace AppointmentScheduleSystem.Controllers
             return View(companies); // redirect it to view
         }
 
+
+        public async Task<IActionResult> About(int id)
+        {
+            Company companies = await _dbRequest.GetByIdAsync(id);
+            return View(companies);
+        }
+        
+
         // get request to create company page
         [HttpGet]
         public IActionResult Create()
