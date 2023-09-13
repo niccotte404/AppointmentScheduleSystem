@@ -23,24 +23,26 @@
                 <div class="row">
                     @foreach (Company company in Model){
                         <div class="col-lg-3">
-                            <div class="left-image">
-                                <img src="@company.Image" alt="">
-                            </div>
-                            <div class="item">
-                                <h4>@company.Name</h4>
+                            <a asp-controller="Company" asp-action="About" asp-route-id="@company.Id" class="text-decoration-none">
+                                <div class="left-image">
+                                    <img src="@company.Image" alt="">
+                                </div>
+                                <div class="item">
+                                    <h4>@company.Name</h4>
                                     @if (@company.Description.Length > 80)
                                     {
                                         for (int i = 0; i < 80; i++)
                                         {
                                             <text>@company.Description[i]</text>
                                         }
-                                    <text>...</text>
+                                        <text>...</text>
                                     }
                                     else
                                     {
                                         <text>@company.Description</text>
                                     }
-                            </div>
+                                </div>
+                            </a>
                         </div>
                     }
                 </div>

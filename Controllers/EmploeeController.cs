@@ -4,9 +4,9 @@ namespace AppointmentScheduleSystem.Controllers
 {
     public class EmploeeController : Controller
     {
-        /*public IActionResult Index()
+        public IActionResult Index()
         {
             return View();
-        }*/
+        }
     }
 }

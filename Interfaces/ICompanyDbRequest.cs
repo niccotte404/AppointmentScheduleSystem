@@ -8,5 +8,6 @@ namespace AppointmentScheduleSystem.Interfaces
         Task<IEnumerable<Company>> GetAllAsync();
         Task<Company> GetByNameAsync (string name);
         Task<IEnumerable<Company>> GetByAppUserIdAsync(string appUserId);
+        Task<bool> EditCompanyId(int id);
     }
 }
