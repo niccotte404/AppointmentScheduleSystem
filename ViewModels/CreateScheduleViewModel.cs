@@ -11,5 +11,6 @@ namespace AppointmentScheduleSystem.ViewModels
         public string Cabinet { get; set; }
         public Date? Date { get; set; }
         public string Time { get; set; }
+        public int? CompanyId { get; set; }
     }
 }

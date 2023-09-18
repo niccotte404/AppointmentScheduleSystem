@@ -37,7 +37,7 @@ namespace AppointmentScheduleSystem.Controllers
                 
                 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                 // change companies to user (not only to owner) => make matching user with company by search
-
+                
                 if (companies.IsNullOrEmpty())
                 {
                     return RedirectToAction("Index", "Company");
@@ -59,9 +59,19 @@ namespace AppointmentScheduleSystem.Controllers
 
         public async Task<IActionResult> Create()
         {
-            CreateScheduleViewModel createScheduleViewModel = new CreateScheduleViewModel();
-            // attach to company here -----
-            return View(createScheduleViewModel);
+            if (_signInManager.IsSignedIn(User))
+            {
+                string companyCreatorId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                IEnumerable<Company> companies = await _companyDbRequest.GetByAppUserIdAsync(companyCreatorId); // get company list of current user
+                if (companies.IsNullOrEmpty())
+                {
+                    return RedirectToAction("Index", "Company");
+                }
+                CreateScheduleViewModel createScheduleViewModel = new CreateScheduleViewModel();
+                createScheduleViewModel.CompanyId = companies.Last().Id;
+                return View(createScheduleViewModel);
+            }
+            return View();
         }
 
         // get post request
@@ -81,8 +91,8 @@ namespace AppointmentScheduleSystem.Controllers
                         Day = createScheduleViewModel.Date.Day,
                         Month = createScheduleViewModel.Date.Month, // здесь можно по идее сразу перевести enum значение в sring, но я заколебался туда сюда мотать бд
                         Year = createScheduleViewModel.Date.Year,
-                    }
-                    // add company
+                    },
+                    CompanyId = createScheduleViewModel.CompanyId
                 }; // map
                 _scheduleDbRequest.Add(schedule);
                 return RedirectToAction("Index");
