@@ -12,8 +12,8 @@ namespace AppointmentScheduleSystem.Controllers
         private readonly ICloudinaryRequest _cloudinaryRequest; // cloudinary api
         private readonly ICompanyDbRequest _dbRequest; // 
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly HttpContextAccessor _httpContextAccessor;
-        public CompanyController(ICloudinaryRequest cloudinaryRequest, ICompanyDbRequest dbRequest, SignInManager<AppUser> signInManager, HttpContextAccessor httpContextAccessor) 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public CompanyController(ICloudinaryRequest cloudinaryRequest, ICompanyDbRequest dbRequest, SignInManager<AppUser> signInManager, IHttpContextAccessor httpContextAccessor) 
         { 
             _cloudinaryRequest = cloudinaryRequest; // make connection to cloudinary api
             _dbRequest = dbRequest; // make connection to database
@@ -40,14 +40,8 @@ namespace AppointmentScheduleSystem.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            if (_signInManager.IsSignedIn(User))
-            {
-                var appUserId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var createCompanyViewModel = new CreateCompanyViewModel();
-                createCompanyViewModel.CreatorId = appUserId;
-                return View(createCompanyViewModel);
-            }
-            return View();
+            var createCompanyViewModel = new CreateCompanyViewModel();
+            return View(createCompanyViewModel);
         }
 
         // post request to create company page
@@ -57,6 +51,7 @@ namespace AppointmentScheduleSystem.Controllers
             if (ModelState.IsValid && _signInManager.IsSignedIn(User))
             {
                 var resultImageUpload = await _cloudinaryRequest.UploadImageAsync(createCompanyViewModel.Image); // get response from cloudinary
+                var appUserId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var company = new Company
                 {
                     Name = createCompanyViewModel.Name,
@@ -64,7 +59,7 @@ namespace AppointmentScheduleSystem.Controllers
                     Phone = createCompanyViewModel.Phone,
                     Email = createCompanyViewModel.Email,
                     Image = resultImageUpload.Url.ToString(),
-                    AppUserId = createCompanyViewModel.CreatorId
+                    AppUserId = appUserId
                 };
                 // map data from view with main model
                 _dbRequest.Add(company); // attach data to database

@@ -28,8 +28,8 @@ namespace AppointmentScheduleSystem.Controllers
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Schedule> schedule = new List<Schedule>(); // init main schedule
-            
+            List<Schedule> schedule = new List<Schedule>(); // init main schedule
+
             if (_signInManager.IsSignedIn(User)) // is user authorised
             {
                 string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); // get user id with context accessor
@@ -42,36 +42,24 @@ namespace AppointmentScheduleSystem.Controllers
                 {
                     return RedirectToAction("Index", "Company");
                 }
-                foreach (var company in companies)
-                {
-                    IEnumerable<Schedule> companySchedule = await _scheduleDbRequest.GetAllByCompanyIdAsync(company.Id); // get schedule of current company
-                    // the complexity of algorithm is O(n) 'cause there is very view amount of companies
-                    foreach (var meeting in companySchedule)
-                    {
-                        schedule.Append(meeting); // add meeting to main schedule
-                    }
-                }
 
-                return View(schedule);
+                IEnumerable<Schedule> companySchedule = await _scheduleDbRequest.GetAllByCompanyIdAsync(companies.Last().Id); // get schedule of current company
+                foreach (var meeting in companySchedule)
+                {
+                    schedule.Add(meeting); // add meeting to main schedule
+                }
             }
             return View(schedule); // send them to view
         }
 
         public async Task<IActionResult> Create()
         {
+            var createScheduleViewModel = new CreateScheduleViewModel();
             if (_signInManager.IsSignedIn(User))
             {
-                string companyCreatorId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                IEnumerable<Company> companies = await _companyDbRequest.GetByAppUserIdAsync(companyCreatorId); // get company list of current user
-                if (companies.IsNullOrEmpty())
-                {
-                    return RedirectToAction("Index", "Company");
-                }
-                CreateScheduleViewModel createScheduleViewModel = new CreateScheduleViewModel();
-                createScheduleViewModel.CompanyId = companies.Last().Id;
                 return View(createScheduleViewModel);
             }
-            return View();
+            return RedirectToAction("Index", "Company");
         }
 
         // get post request
@@ -80,6 +68,9 @@ namespace AppointmentScheduleSystem.Controllers
         {
             if (ModelState.IsValid) // model validation
             {
+                string companyCreatorId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                IEnumerable<Company> companies = await _companyDbRequest.GetByAppUserIdAsync(companyCreatorId); // get company list of current user
+                var compamyId = companies.Last().Id;
                 var schedule = new Schedule
                 {
                     Title = createScheduleViewModel.Title,
@@ -92,7 +83,7 @@ namespace AppointmentScheduleSystem.Controllers
                         Month = createScheduleViewModel.Date.Month, // здесь можно по идее сразу перевести enum значение в sring, но я заколебался туда сюда мотать бд
                         Year = createScheduleViewModel.Date.Year,
                     },
-                    CompanyId = createScheduleViewModel.CompanyId
+                    CompanyId = compamyId
                 }; // map
                 _scheduleDbRequest.Add(schedule);
                 return RedirectToAction("Index");

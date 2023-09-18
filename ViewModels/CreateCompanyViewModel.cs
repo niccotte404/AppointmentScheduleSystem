@@ -10,6 +10,6 @@
         public string Email { get; set; }
         public IFormFile? Image { get; set; }
         public string? ImageUrl { get; set; }
-        public string? CreatorId { get; set; }
+        public string? AppUserId { get; set; }
     }
 }

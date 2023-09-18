@@ -1,11 +1,10 @@
 ﻿@using AppointmentScheduleSystem.Data.Enum
 @using Microsoft.AspNetCore.Identity
+@using AppointmentScheduleSystem.Repositiry
 @inject SignInManager<AppUser> SignInManager
-@model IEnumerable<Schedule>
+@model List<Schedule>
 
-@{
-    ViewData["Title"] = "Schedule";
-    
+@{    
 }
 
 <body>
