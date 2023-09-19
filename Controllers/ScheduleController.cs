@@ -18,18 +18,20 @@ namespace AppointmentScheduleSystem.Controllers
         private readonly ICompanyDbRequest _companyDbRequest; // db request ot company table
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public ScheduleController(IScheduleDbRequest scheduleDbRequest, ICompanyDbRequest companyDbRequest, SignInManager<AppUser> signInManager, IHttpContextAccessor httpContextAccessor)
+        private readonly IDateDbRequest _dateDbRequest;
+        public ScheduleController(IScheduleDbRequest scheduleDbRequest, ICompanyDbRequest companyDbRequest, SignInManager<AppUser> signInManager, IHttpContextAccessor httpContextAccessor, IDateDbRequest dateDbRequest)
         {
             _scheduleDbRequest = scheduleDbRequest;
             _companyDbRequest = companyDbRequest;
             _signInManager = signInManager;
             _httpContextAccessor = httpContextAccessor;
+            _dateDbRequest = dateDbRequest;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Schedule> schedule = new List<Schedule>(); // init main schedule
-            
+            List<Schedule> schedule = new List<Schedule>(); // init main schedule
+
             if (_signInManager.IsSignedIn(User)) // is user authorised
             {
                 string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); // get user id with context accessor
@@ -37,31 +39,29 @@ namespace AppointmentScheduleSystem.Controllers
                 
                 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                 // change companies to user (not only to owner) => make matching user with company by search
-
+                
                 if (companies.IsNullOrEmpty())
                 {
                     return RedirectToAction("Index", "Company");
                 }
-                foreach (var company in companies)
-                {
-                    IEnumerable<Schedule> companySchedule = await _scheduleDbRequest.GetAllByCompanyIdAsync(company.Id); // get schedule of current company
-                    // the complexity of algorithm is O(n) 'cause there is very view amount of companies
-                    foreach (var meeting in companySchedule)
-                    {
-                        schedule.Append(meeting); // add meeting to main schedule
-                    }
-                }
 
-                return View(schedule);
+                IEnumerable<Schedule> companySchedule = await _scheduleDbRequest.GetAllByCompanyIdAsync(companies.Last().Id); // get schedule of current company
+                foreach (var meeting in companySchedule)
+                {
+                    schedule.Add(meeting); // add meeting to main schedule
+                }
             }
             return View(schedule); // send them to view
         }
 
         public async Task<IActionResult> Create()
         {
-            CreateScheduleViewModel createScheduleViewModel = new CreateScheduleViewModel();
-            // attach to company here -----
-            return View(createScheduleViewModel);
+            var createScheduleViewModel = new CreateScheduleViewModel();
+            if (_signInManager.IsSignedIn(User))
+            {
+                return View(createScheduleViewModel);
+            }
+            return RedirectToAction("Index", "Company");
         }
 
         // get post request
@@ -70,6 +70,9 @@ namespace AppointmentScheduleSystem.Controllers
         {
             if (ModelState.IsValid) // model validation
             {
+                string companyCreatorId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                IEnumerable<Company> companies = await _companyDbRequest.GetByAppUserIdAsync(companyCreatorId); // get company list of current user
+                var compamyId = companies.Last().Id;
                 var schedule = new Schedule
                 {
                     Title = createScheduleViewModel.Title,
@@ -81,10 +84,11 @@ namespace AppointmentScheduleSystem.Controllers
                         Day = createScheduleViewModel.Date.Day,
                         Month = createScheduleViewModel.Date.Month, // здесь можно по идее сразу перевести enum значение в sring, но я заколебался туда сюда мотать бд
                         Year = createScheduleViewModel.Date.Year,
-                    }
-                    // add company
+                    },
+                    CompanyId = compamyId
                 }; // map
                 _scheduleDbRequest.Add(schedule);
+                schedule.Date = await _dateDbRequest.GetDateById(schedule.DateId);
                 return RedirectToAction("Index");
             }
             else
