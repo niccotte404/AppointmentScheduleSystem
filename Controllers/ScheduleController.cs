@@ -18,12 +18,14 @@ namespace AppointmentScheduleSystem.Controllers
         private readonly ICompanyDbRequest _companyDbRequest; // db request ot company table
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public ScheduleController(IScheduleDbRequest scheduleDbRequest, ICompanyDbRequest companyDbRequest, SignInManager<AppUser> signInManager, IHttpContextAccessor httpContextAccessor)
+        private readonly IDateDbRequest _dateDbRequest;
+        public ScheduleController(IScheduleDbRequest scheduleDbRequest, ICompanyDbRequest companyDbRequest, SignInManager<AppUser> signInManager, IHttpContextAccessor httpContextAccessor, IDateDbRequest dateDbRequest)
         {
             _scheduleDbRequest = scheduleDbRequest;
             _companyDbRequest = companyDbRequest;
             _signInManager = signInManager;
             _httpContextAccessor = httpContextAccessor;
+            _dateDbRequest = dateDbRequest;
         }
 
         public async Task<IActionResult> Index()
@@ -86,6 +88,7 @@ namespace AppointmentScheduleSystem.Controllers
                     CompanyId = compamyId
                 }; // map
                 _scheduleDbRequest.Add(schedule);
+                schedule.Date = await _dateDbRequest.GetDateById(schedule.DateId);
                 return RedirectToAction("Index");
             }
             else

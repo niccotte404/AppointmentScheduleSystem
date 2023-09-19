@@ -4,6 +4,6 @@ namespace AppointmentScheduleSystem.Interfaces
 {
     public interface IDateDbRequest
     {
-        Task<Date> GetMonthById(int id);
+        Task<Date> GetDateById(int? id);
     }
 }

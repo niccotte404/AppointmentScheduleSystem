@@ -13,9 +13,13 @@ namespace AppointmentScheduleSystem.Repositiry
             _context = context;
         }
 
-        public async Task<Date> GetMonthById(int id)
+        public async Task<Date> GetDateById(int? id)
         {
-            return await _context.Dates.FirstOrDefaultAsync(elem => elem.Id == id);
+            if (id is not null)
+            {
+                return await _context.Dates.FirstOrDefaultAsync(elem => elem.Id == id);
+            }
+            return null;
         }
     }
 }

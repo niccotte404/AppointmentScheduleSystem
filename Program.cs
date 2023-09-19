@@ -15,6 +15,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICloudinaryRequest, CloudinaryRequest>(); // set implimentations of interfaces
 builder.Services.AddScoped<ICompanyDbRequest, CompanyDbRequest>();
 builder.Services.AddScoped<IScheduleDbRequest, ScheduleDbRequest>();
+builder.Services.AddScoped<IDateDbRequest, DateDbRequest>();
 builder.Services.Configure<CloudinaryAccount>(builder.Configuration.GetSection("CloudinarySettings")); // send cloudinary account data from appsettings.json to used model
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
