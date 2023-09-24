@@ -35,19 +35,21 @@ namespace AppointmentScheduleSystem.Controllers
             if (_signInManager.IsSignedIn(User)) // is user authorised
             {
                 string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); // get user id with context accessor
-                IEnumerable<Company> companies = await _companyDbRequest.GetByAppUserIdAsync(userId); // get company list of current user
+                AppUser appUser = await _signInManager.UserManager.FindByIdAsync(userId); // get user id with context accessor
+                Company company = await _companyDbRequest.GetByIdAsync(appUser.CompanyId); // get company list of current user
                 
                 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                 // change companies to user (not only to owner) => make matching user with company by search
                 
-                if (companies.IsNullOrEmpty())
+                if (company is null)
                 {
                     return RedirectToAction("Index", "Company");
                 }
 
-                IEnumerable<Schedule> companySchedule = await _scheduleDbRequest.GetAllByCompanyIdAsync(companies.Last().Id); // get schedule of current company
+                IEnumerable<Schedule> companySchedule = await _scheduleDbRequest.GetAllByCompanyIdAsync(company.Id); // get schedule of current company
                 foreach (var meeting in companySchedule)
                 {
+                    meeting.Date = await _dateDbRequest.GetDateById(meeting.DateId);
                     schedule.Add(meeting); // add meeting to main schedule
                 }
             }
@@ -88,7 +90,6 @@ namespace AppointmentScheduleSystem.Controllers
                     CompanyId = compamyId
                 }; // map
                 _scheduleDbRequest.Add(schedule);
-                schedule.Date = await _dateDbRequest.GetDateById(schedule.DateId);
                 return RedirectToAction("Index");
             }
             else

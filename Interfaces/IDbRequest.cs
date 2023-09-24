@@ -1,4 +1,6 @@
-﻿namespace AppointmentScheduleSystem.Interfaces
+﻿using AppointmentScheduleSystem.Models;
+
+namespace AppointmentScheduleSystem.Interfaces
 {
     public interface IDbRequest<T>
     {

@@ -37,10 +37,11 @@ namespace AppointmentScheduleSystem.Repositiry
             return await _context.Companies.Where(i => i.AppUserId == appUserId).ToListAsync(); // get by app user id to math company with creator
         }
 
-        public async Task<Company> GetByIdAsync(int id)
+        public async Task<Company> GetByIdAsync(int? id)
         {
             return await _context.Companies.FirstOrDefaultAsync(i => i.Id == id);
         }
+
 
         public async Task<Company> GetByNameAsync(string name)
         {
